@@ -1,0 +1,78 @@
+#include    <bits/stdc++.h>
+#define ll long long
+#define ld long double
+#define sz(x) (int)x.size()
+#define ii pair<ll, ll>
+#define fi first
+#define se second
+#define mp make_pair
+#define pb push_back
+#define pf push_front
+#define all(x) x.begin(), x.end()
+#define rall(x) x.rbegin(), x.rend()
+#define set0(d) memset(d, 0, sizeof(d))
+using namespace std;
+
+const int LOG = 20;
+const int base = 311;
+const ll inf = 1e18;
+const int block = 400;
+const ll MOD = 1e9 + 7;
+const int mxN = 1e6 + 66;
+
+int tc;
+string S;
+
+void solve()
+{
+    cin >> S;
+    int x = 0, y = 0;
+    for(char &c : S)
+    {
+        if (c == '(') ++x;
+         else if (c == ')') ++y;
+    }
+
+    int mo = sz(S) / 2 - x, dong = sz(S) / 2 - y;
+    for(char &c : S)
+    {
+        if (c == '?')
+        {
+            if (mo)
+            {
+                c = '(';
+                --mo;
+            } else
+            {
+                c = ')';
+                --dong;
+            }
+        }
+    }
+
+    if (mo || dong || sz(S) & 1) cout << "NO\n";
+     else
+     {
+         stack<char> st;
+         for(char &c : S)
+         {
+             if (c == '(') st.push(c);
+              else if (st.empty())
+              {
+                  cout << "NO\n";
+                  return;
+              } else st.pop();
+         }
+         cout << "YES\n";
+     }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+    freopen("test.inp", "r", stdin);
+    cin >> tc;
+    while(tc--) solve();
+    return 0;
+}
